@@ -1,6 +1,6 @@
 cloudprovider: vsphere
 
-cloudCredentialSecretName: vsphere
+cloudCredentialSecretName: molmedo
 
 # Specify nodepool options. Can add multiple node groups, specify etcd, controlplane and worker roles.
 nodepools:
@@ -60,7 +60,7 @@ nodepools:
   # machineDeploymentAnnotations: {}
 
   # specify nodepool name
-  name: vsphere-nodepool-1
+  name: vsphere-molmedo-1
 
   # vSphere vm configuration parameters (used for guestinfo)
   # cfgparam: []
@@ -89,7 +89,7 @@ nodepools:
   # customAttribute: ["200=mycustom value"]
 
   # vSphere datacenter for virtual machine
-  # datacenter: ""
+  datacenter: "rancherdc"
 
   # vSphere datastore for virtual machine
   # datastore: ""
