@@ -1,7 +1,7 @@
 apiVersion: v1
 entries:
   cluster-template:
-  - annotations:
+  #- annotations:
       #catalog.cattle.io/namespace: fleet-default
       #catalog.cattle.io/type: cluster-template
     apiVersion: v1
