@@ -18,6 +18,12 @@ spec:
   {{- if .Values.kubernetesVersion }}
   kubernetesVersion: {{ .Values.kubernetesVersion }}
   {{- end }}
+  {{- if .Values.localClusterAuthEndpoint.enabled }}
+  localClusterAuthEndpoint:
+    enabled: {{ .Values.localClusterAuthEndpoint.enabled }}
+    fqdn: {{ .Values.localClusterAuthEndpoint.fqdn }}
+    caCerts: {{ .Values.localClusterAuthEndpoint.caCerts }}
+  {{- end }}
   # enable network policy
   enableNetworkPolicy: true
   # specify rancher helm chart values deployed into downstream cluster
@@ -50,6 +56,14 @@ spec:
       rollingUpdate:
         maxUnavailable: {{ $nodepool.rollingUpdate.maxUnavailable }}
         maxSurge: {{ $nodepool.rollingUpdate.maxSurge }}
+      {{- end }}
+      {{- if $nodepool.labels }}
+      labels:
+{{ toYaml $nodepool.labels | indent 8 }}
+      {{- end }}
+      {{- if $nodepool.taints }}
+      taints:
+{{ toYaml $nodepool.taints | indent 8 }}
       {{- end }}
       {{- if $nodepool.machineDeploymentLabels }}
       machineDeploymentLabels:
@@ -87,6 +101,14 @@ spec:
       rollingUpdate:
         maxUnavailable: {{ $nodepool.rollingUpdate.maxUnavailable }}
         maxSurge: {{ $nodepool.rollingUpdate.maxSurge }}
+      {{- end }}
+      {{- if $nodepool.labels }}
+      labels:
+{{ toYaml $nodepool.labels | indent 8 }}
+      {{- end }}
+      {{- if $nodepool.taints }}
+      taints:
+{{ toYaml $nodepool.taints | indent 8 }}
       {{- end }}
       {{- if $nodepool.machineDeploymentLabels }}
       machineDeploymentLabels:
@@ -164,12 +186,6 @@ spec:
         # cloud-provider-name: ""
         # Cloud provider configuration file path
         # cloud-provider-config: ""
-    {{- if .Values.rke.localClusterAuthEndpoint.enabled }}
-    localClusterAuthEndpoint:
-      enabled: {{ .Values.rke.localClusterAuthEndpoint.enabled }}
-      fqdn: {{ .Values.rke.localClusterAuthEndpoint.fqdn }}
-      caCerts: {{ .Values.rke.localClusterAuthEndpoint.caCerts }}
-    {{- end }}
     upgradeStrategy:
       controlPlaneDrainOptions:
         enabled: false
